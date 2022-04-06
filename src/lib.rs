@@ -63,7 +63,12 @@ fn lcs_para_lineas(lineas_f1: &[String], lineas_f2: &[String]) -> Vec<Vec<u32>> 
         vec![vec![0; cantidad_columnas_para_grilla]; cantidad_filas_para_grilla];
 
     for i in 0..cantidad_filas_para_grilla - 1 {
-        for j in 0..cantidad_columnas_para_grilla - 1 {
+        for (j, _) in lineas_f2
+            .iter()
+            .enumerate()
+            .take(cantidad_columnas_para_grilla - 1)
+        {
+            //Forma de iterar añadida por clippy, creo que es falso positivo ya que piensa que se usa j para indexar SOLO lineas_f2, cuando tambien se usa para grid.
             if lineas_f1[i] == lineas_f2[j] {
                 grilla[i + 1][j + 1] = grilla[i][j] + 1;
             } else {
