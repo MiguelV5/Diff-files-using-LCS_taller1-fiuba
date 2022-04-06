@@ -7,7 +7,6 @@ use lib::*;
 const CODIGO_DE_SALIDA_POR_ERROR: i32 = 1;
 
 fn main() {
-
     let prompt_args: Vec<String> = env::args().collect();
 
     let (path_archivo_1, path_archivo_2) = match parsear_args(&prompt_args) {
@@ -22,7 +21,4 @@ fn main() {
             process::exit(CODIGO_DE_SALIDA_POR_ERROR);
         }
     }
-
 }
-
-
