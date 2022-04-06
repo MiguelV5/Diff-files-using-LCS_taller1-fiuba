@@ -4,6 +4,8 @@ use std::io::Error;
 use std::io::Read;
 use std::process;
 
+const CODIGO_DE_SALIDA_POR_ERROR: i32 = 1;
+
 fn read_file_lines(path_de_archivo: &str) -> Result<Vec<String>, Error> {
     let mut archivo_a_leer = File::open(path_de_archivo)?;
 
@@ -19,18 +21,22 @@ fn read_file_lines(path_de_archivo: &str) -> Result<Vec<String>, Error> {
 }
 
 fn main() {
+
+
+
     let prompt_args: Vec<String> = env::args().collect();
     println!("{:?}", prompt_args);
+
     if prompt_args.len() != 3 {
         println!("Se recibieron demasiados/muy pocos argumentos.\nSe necesita el nombre de los dos archivos a procesar.\nArgumentos recibidos: {:?}", prompt_args);
-        process::exit(1);
+        process::exit(CODIGO_DE_SALIDA_POR_ERROR);
     };
 
     let lineas_f1: Vec<String> = match read_file_lines(&prompt_args[1]) {
         Ok(lineas) => lineas,
         Err(err) => {
             println!("Error al obtener lineas del primer archivo pasado por parametro.\nDetalle de error:\n {:?}", err);
-            process::exit(1);
+            process::exit(CODIGO_DE_SALIDA_POR_ERROR);
         }
     };
 
@@ -38,10 +44,12 @@ fn main() {
         Ok(lineas) => lineas,
         Err(err) => {
             println!("Error al obtener lineas del segundo archivo pasado por parametro.\nDetalle de error:\n {:?}", err);
-            process::exit(1);
+            process::exit(CODIGO_DE_SALIDA_POR_ERROR);
         }
     };
 
     println!("Lecturas del primer archivo: {:?}", lineas_f1);
     println!("Lecturas del segundo archivo: {:?}", lineas_f2);
+
+
 }
