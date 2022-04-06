@@ -2,6 +2,7 @@ use std::env;
 use std::fs::File;
 use std::io::Error;
 use std::io::Read;
+use std::process;
 
 fn read_file_lines(path_de_archivo: &str) -> Result<Vec<String>, Error> {
     let mut archivo_a_leer = File::open(path_de_archivo)?;
@@ -21,14 +22,15 @@ fn main() {
     let prompt_args: Vec<String> = env::args().collect();
     println!("{:?}", prompt_args);
     if prompt_args.len() != 3 {
-        panic!("Se recibieron demasiados/muy pocos argumentos.\nSe necesita el nombre de los dos archivos a procesar.\nArgumentos recibidos: {:?}", prompt_args);
+        println!("Se recibieron demasiados/muy pocos argumentos.\nSe necesita el nombre de los dos archivos a procesar.\nArgumentos recibidos: {:?}", prompt_args);
+        process::exit(1);
     };
 
     let lineas_f1: Vec<String> = match read_file_lines(&prompt_args[1]) {
         Ok(lineas) => lineas,
         Err(err) => {
             println!("Error al obtener lineas del primer archivo pasado por parametro.\nDetalle de error:\n {:?}", err);
-            return;
+            process::exit(1);
         }
     };
 
@@ -36,7 +38,7 @@ fn main() {
         Ok(lineas) => lineas,
         Err(err) => {
             println!("Error al obtener lineas del segundo archivo pasado por parametro.\nDetalle de error:\n {:?}", err);
-            return;
+            process::exit(1);
         }
     };
 
