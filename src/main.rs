@@ -20,19 +20,31 @@ fn read_file_lines(path_de_archivo: &str) -> Result<Vec<String>, Error> {
     Ok(datos_en_vector_de_strings)
 }
 
-fn main() {
 
+fn parsear_args(args: &[String]) -> Option<(String, String)>{
 
-
-    let prompt_args: Vec<String> = env::args().collect();
-    println!("{:?}", prompt_args);
-
-    if prompt_args.len() != 3 {
-        println!("Se recibieron demasiados/muy pocos argumentos.\nSe necesita el nombre de los dos archivos a procesar.\nArgumentos recibidos: {:?}", prompt_args);
-        process::exit(CODIGO_DE_SALIDA_POR_ERROR);
+    if args.len() != 3 {
+        println!("Se recibieron demasiados/muy pocos argumentos.\nSe necesita el nombre de los dos archivos a procesar.\nArgumentos recibidos: {:?}", args);
+        return None;
     };
 
-    let lineas_f1: Vec<String> = match read_file_lines(&prompt_args[1]) {
+    let path_archivo_1 = args[1].clone();
+    let path_archivo_2 = args[2].clone();
+
+    Some((path_archivo_1, path_archivo_2))
+
+}
+
+fn main() {
+
+    let prompt_args: Vec<String> = env::args().collect();
+
+    let (path_archivo_1, path_archivo_2) = match parsear_args(&prompt_args) {
+        Some((path_archivo_1, path_archivo_2)) => (path_archivo_1, path_archivo_2),
+        None => process::exit(CODIGO_DE_SALIDA_POR_ERROR),
+    };
+    
+    let lineas_f1: Vec<String> = match read_file_lines(&path_archivo_1) {
         Ok(lineas) => lineas,
         Err(err) => {
             println!("Error al obtener lineas del primer archivo pasado por parametro.\nDetalle de error:\n {:?}", err);
@@ -40,7 +52,7 @@ fn main() {
         }
     };
 
-    let lineas_f2: Vec<String> = match read_file_lines(&prompt_args[2]) {
+    let lineas_f2: Vec<String> = match read_file_lines(&path_archivo_2) {
         Ok(lineas) => lineas,
         Err(err) => {
             println!("Error al obtener lineas del segundo archivo pasado por parametro.\nDetalle de error:\n {:?}", err);
