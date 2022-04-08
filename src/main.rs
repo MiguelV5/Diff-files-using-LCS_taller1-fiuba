@@ -4,21 +4,21 @@ use std::process;
 mod lib;
 use lib::*;
 
-const CODIGO_DE_SALIDA_POR_ERROR: i32 = 1;
+const ERROR_EXIT_CODE: i32 = 1;
 
 fn main() {
     let prompt_args: Vec<String> = env::args().collect();
 
-    let (path_archivo_1, path_archivo_2) = match parsear_args(&prompt_args) {
-        Some((path_archivo_1, path_archivo_2)) => (path_archivo_1, path_archivo_2),
-        None => process::exit(CODIGO_DE_SALIDA_POR_ERROR),
+    let (path_of_file_1, path_of_file_2) = match parse_args(&prompt_args) {
+        Some((path_of_file_1, path_of_file_2)) => (path_of_file_1, path_of_file_2),
+        None => process::exit(ERROR_EXIT_CODE),
     };
 
-    match ejecutar_diff(path_archivo_1, path_archivo_2) {
+    match run_diff(path_of_file_1, path_of_file_2) {
         Ok(()) => (),
-        Err(string_con_info_de_error) => {
-            println!("{}", string_con_info_de_error);
-            process::exit(CODIGO_DE_SALIDA_POR_ERROR);
+        Err(string_with_error_info) => {
+            println!("{}", string_with_error_info);
+            process::exit(ERROR_EXIT_CODE);
         }
     }
 }
