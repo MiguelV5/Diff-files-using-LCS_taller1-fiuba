@@ -2,6 +2,8 @@ use std::fs::File;
 use std::io::Error;
 use std::io::Read;
 
+const ARGS_NECESARIOS_PARA_DIFF: usize = 3;
+
 pub fn read_file_lines(path_de_archivo: &str) -> Result<Vec<String>, Error> {
     let mut archivo_a_leer = File::open(path_de_archivo)?;
 
@@ -17,7 +19,7 @@ pub fn read_file_lines(path_de_archivo: &str) -> Result<Vec<String>, Error> {
 }
 
 pub fn parsear_args(args: &[String]) -> Option<(String, String)> {
-    if args.len() != 3 {
+    if args.len() != ARGS_NECESARIOS_PARA_DIFF {
         println!("Se recibieron demasiados/muy pocos argumentos.\nSe necesita el nombre de los dos archivos a procesar.\nArgumentos recibidos: {:?}", args);
         return None;
     };
