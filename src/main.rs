@@ -14,11 +14,14 @@ fn main() {
         None => process::exit(ERROR_EXIT_CODE),
     };
 
-    match run_diff(path_of_file_1, path_of_file_2) {
-        Ok(()) => (),
-        Err(string_with_error_info) => {
-            println!("{}", string_with_error_info);
-            process::exit(ERROR_EXIT_CODE);
-        }
-    }
+    let (lines_of_file_1, lines_of_file_2) =
+        match obtain_line_sequences_to_compare(path_of_file_1, path_of_file_2) {
+            Ok((lines_f1, lines_f2)) => (lines_f1, lines_f2),
+            Err(string_with_error_info) => {
+                println!("{}", string_with_error_info);
+                process::exit(ERROR_EXIT_CODE);
+            }
+        };
+
+    run_diff(lines_of_file_1, lines_of_file_2);
 }
