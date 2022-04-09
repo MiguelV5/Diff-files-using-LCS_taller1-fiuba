@@ -1,5 +1,0 @@
-abcdefg
-abcddgh
-12345
-option
-result
