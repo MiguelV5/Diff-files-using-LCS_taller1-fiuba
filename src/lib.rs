@@ -154,8 +154,8 @@ fn lcs_for_lines(lines_of_file_1: &[String], lines_of_file_2: &[String]) -> Vec<
     grid
 }
 
-/// Crea y devuelve una grilla para los resultados del algoritmo LCS.
-/// Esta implementación aplica el algoritmo longest common subsequence, adaptado a comparar lineas (Strings) entre sí en vez de caracteres.
+/// En base a una grilla con el resultado de algoritmo lcs para las secuencias seq_1 y seq_2, imprime por consola la diferencia entre
+/// las lineas de los dos archivos correspondientes a sus secuencias.
 ///
 /// # Ejemplo de uso básico:
 ///
@@ -164,7 +164,7 @@ fn lcs_for_lines(lines_of_file_1: &[String], lines_of_file_2: &[String]) -> Vec<
 /// - i y j son la ubicación dentro de la grilla que se quiere buscar cuando se lee el diff. Se requiere que los valores iniciales sean la
 /// longitud de la 1ra y 2nda secuencia respectivamente.
 /// ```
-/// print_diff(&grid, &lines_of_file_1, &lines_of_file_2, lines_of_file_1.len(), lines_of_file_2.len());
+/// print_diff(&grid, &seq_1, &seq_2, seq_1.len(), seq_2.len());
 /// ```
 fn print_diff(
     grid: &[Vec<u32>],
