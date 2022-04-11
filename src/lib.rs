@@ -30,7 +30,6 @@ const NEEDED_ARGS_TO_PARSE: usize = 3;
 ///
 pub fn parse_args(args: &[String]) -> Option<(String, String)> {
     if args.len() != NEEDED_ARGS_TO_PARSE {
-        println!("Se recibieron demasiados/muy pocos argumentos.\nSe necesita el nombre de los dos archivos a procesar.\nArgumentos recibidos: {:?}", args);
         return None;
     };
 
