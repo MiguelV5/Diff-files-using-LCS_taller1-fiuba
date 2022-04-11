@@ -11,7 +11,7 @@ fn main() {
         None => {
             println!("\nSe recibieron demasiados/muy pocos argumentos.\nSe necesita el nombre de los dos archivos a procesar.\nArgumentos recibidos: {:?}\n", prompt_args);
             return;
-        },
+        }
     };
 
     let (lines_of_file_1, lines_of_file_2) =
